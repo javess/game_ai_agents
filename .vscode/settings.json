@@ -6,6 +6,7 @@
         "platform": "linux-x86_64"
     },
     "python.analysis.extraPaths": [
-        "./buck-out/v2/gen/root/6553ba90a552c2c0/third_party/pygame/__pygame__/pygame_extracted"
+        "./buck-out/v2/gen/root/6553ba90a552c2c0/third_party/pygame/__pygame__/pygame_extracted",
+        "./buck-out/v2/gen/root/6553ba90a552c2c0/third_party/numpy/__numpy__/numpy_extracted"
     ]
 }

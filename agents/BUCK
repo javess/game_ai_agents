@@ -3,5 +3,6 @@ python_binary(
   main = 'main.py',
   deps = [
     '//third_party/pygame:pygame',
+    '//third_party/numpy:numpy',
   ],
 )
