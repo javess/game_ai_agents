@@ -1,0 +1,7 @@
+prebuilt_python_library(
+  name = "numpy",
+  binary_src = "numpy-1.26.2-cp312-cp312-macosx_10_9_x86_64.whl",
+  visibility = [
+    'PUBLIC',
+  ],
+)
