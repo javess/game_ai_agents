@@ -1,0 +1,7 @@
+python_binary(
+  name = 'main',
+  main = 'main.py',
+  deps = [
+    '//third_party/pygame:pygame',
+  ],
+)
