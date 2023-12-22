@@ -1,0 +1,19 @@
+python_library(
+  name = 'ecs',
+  base_module = "ecslib",
+  srcs = glob(['*.py']),
+  deps = [
+    '//third_party/numpy:numpy',
+  ],
+  visibility = [
+    'PUBLIC',
+  ],
+)
+
+python_binary(
+  name = 'tailer',
+  main_module = 'ecslib',
+  deps = [
+    ':ecs',
+  ],
+)

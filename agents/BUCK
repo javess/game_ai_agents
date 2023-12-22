@@ -2,6 +2,7 @@ python_binary(
   name = 'main',
   main = 'main.py',
   deps = [
+    '//ecs:ecs',
     '//third_party/pygame:pygame',
     '//third_party/numpy:numpy',
   ],

@@ -17,3 +17,6 @@ target_platform_detector_spec = target:root//...->prelude//platforms:default
 
 [project]
 ignore = .git
+
+[python]
+  interpreter = /usr/bin/python3
