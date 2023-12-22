@@ -1,13 +1,13 @@
 python_library(
-  name = 'ecs',
-  base_module = "ecslib",
+  name = 'game',
+  base_module = "game",
   srcs = glob(['*.py']),
   deps = [
     '//third_party/numpy:numpy',
-    '//third_party/pygame:pygame',
+    '//ecs:ecs',
+
   ],
   visibility = [
     'PUBLIC',
   ],
 )
-
