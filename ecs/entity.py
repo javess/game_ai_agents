@@ -34,5 +34,5 @@ class Entity:
         self.move(delta_time)
 
     def render(self, screen):
-        self._renderer.render(screen);
+        self._renderer.render(screen, self._name);
     
