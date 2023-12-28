@@ -4,38 +4,48 @@ import numpy as np
 import random
 from ecslib.game.app_state import AppState
 from ecslib.entity import Entity
-from ecslib.behavior.enemy import ChaserBehaviour
-from ecslib.behavior.player import RandomWandererBehaviour
+from ecslib.behavior.chaser import ChaserBehaviour
+from ecslib.behavior.wanderer import RandomWandererBehaviour
+from ecslib.behavior.avoider import AvoiderBehaviour
 from ecslib.transform import Transform
 
 
 WORLD_WIDTH = 1440
 WORLD_HEIGHT = 800
-ENEMY_COUNT = 10
+ENEMY_COUNT = 5
 PLAYER_SIZE = (15, 15)
 
 # Create a clock object
 clock = pygame.time.Clock()
 
 # Set the desired FPS
-fps = 60
+fps = 90
 
 pygame.init()
 screen = pygame.display.set_mode((WORLD_WIDTH, WORLD_HEIGHT))
 app_state = AppState()
 
 player = Entity(name='Player', transform=Transform(np.array([100, 100])), color=(255, 255, 255), size=PLAYER_SIZE, behaviours=[
-    RandomWandererBehaviour(speed=150)
+    RandomWandererBehaviour(speed=50)
 ])
 app_state.add_entity(player)
 
 enemies = []
 for i in range(ENEMY_COUNT):
     enemy = Entity(name=f'Enemy-{i}', transform=Transform(np.array([400 + (20 * i), 400 + (25*i)])), color=(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)), size=PLAYER_SIZE, behaviours=[
-        ChaserBehaviour(speed=15*(i+1), target=player, max_acceleration=5)
+        ChaserBehaviour(speed=50, target=player, max_acceleration=5),
+        RandomWandererBehaviour(speed=100, max_turn_angle=20)
     ])
     enemies.append(enemy)
     app_state.add_entity(enemy)
+
+for e in enemies:
+    e.add_behaviour(
+        AvoiderBehaviour(targets=enemies, speed=50, max_distance=60)
+    )
+
+player.add_behaviour(AvoiderBehaviour(
+    targets=enemies, speed=100, max_distance=100))
 
 
 while True:
