@@ -26,7 +26,7 @@ screen = pygame.display.set_mode((WORLD_WIDTH, WORLD_HEIGHT))
 app_state = AppState()
 
 player = Entity(name='Player', transform=Transform(np.array([100, 100])), color=(255, 255, 255), size=PLAYER_SIZE, behaviours=[
-    RandomWandererBehaviour(speed=50)
+    RandomWandererBehaviour(speed=100)
 ])
 app_state.add_entity(player)
 
@@ -39,10 +39,10 @@ for i in range(ENEMY_COUNT):
     enemies.append(enemy)
     app_state.add_entity(enemy)
 
-for e in enemies:
-    e.add_behaviour(
-        AvoiderBehaviour(targets=enemies, speed=50, max_distance=60)
-    )
+# for e in enemies:
+#     e.add_behaviour(
+#         AvoiderBehaviour(targets=enemies, speed=50, max_distance=60)
+#     )
 
 player.add_behaviour(AvoiderBehaviour(
     targets=enemies, speed=100, max_distance=100))
