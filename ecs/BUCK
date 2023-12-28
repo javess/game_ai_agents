@@ -1,7 +1,7 @@
 python_library(
   name = 'ecs',
   base_module = "ecslib",
-  srcs = glob(['*.py']),
+  srcs = glob(['**/*.py']),
   deps = [
     '//third_party/numpy:numpy',
     '//third_party/pygame:pygame',

@@ -1,13 +1,13 @@
 from typing import List, Type
-from ecslib.entity import Entity
+from ..entity import Entity
 
 class AppState:
     def __init__(self):
         self.entities: List[Type[Entity]] = []
 
-    def update(self, screen) -> None:
+    def update(self, screen, delta_time) -> None:
         for entity in self.entities:
-            entity.update()
+            entity.update(delta_time)
         for entity in self.entities:
             entity.render(screen)
     

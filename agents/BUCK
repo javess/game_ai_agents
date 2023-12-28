@@ -3,7 +3,6 @@ python_binary(
   main = 'main.py',
   deps = [
     '//ecs:ecs',
-    '//game:game',
     '//third_party/pygame:pygame',
     '//third_party/numpy:numpy',
   ],

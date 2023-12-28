@@ -8,6 +8,7 @@ class Entity:
         self._name: str = name
         self._transform: Transform = transform
         self._renderer = BaseRenderer(color, size, self.get_position_tuple())
+        self._speed_vector:np.ndarray = np.array([100, 0])
 
     def get_transform(self) -> Transform:
         return self._transform
@@ -23,8 +24,14 @@ class Entity:
         pos = self.get_position()
         return (pos[0], pos[1])
     
-    def update(self):
-        pass
+    def move(self, delta_time: float):
+        enemy_pos = Transform.wrap_toloidal_pos(
+            self.get_position() + self._speed_vector*delta_time, 1440, 800)
+        self.set_position(enemy_pos)
+    
+
+    def update(self, delta_time: float):
+        self.move(delta_time)
 
     def render(self, screen):
         self._renderer.render(screen);
