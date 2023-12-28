@@ -5,7 +5,7 @@ import numpy as np
 import random
 
 
-class PlayerEntity(Behaviour):
+class RandomWandererBehaviour(Behaviour):
     def __init__(self, speed, **kwargs):
         super().__init__(**kwargs)
         self.speed = speed

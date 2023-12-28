@@ -4,8 +4,8 @@ import numpy as np
 import random
 from ecslib.game.app_state import AppState
 from ecslib.entity import Entity
-from ecslib.behavior.enemy import EnemyEntity
-from ecslib.behavior.player import PlayerEntity
+from ecslib.behavior.enemy import ChaserBehaviour
+from ecslib.behavior.player import RandomWandererBehaviour
 from ecslib.transform import Transform
 
 
@@ -25,14 +25,14 @@ screen = pygame.display.set_mode((WORLD_WIDTH, WORLD_HEIGHT))
 app_state = AppState()
 
 player = Entity(name='Player', transform=Transform(np.array([100, 100])), color=(255, 255, 255), size=PLAYER_SIZE, behaviours=[
-    PlayerEntity(speed=150)
+    RandomWandererBehaviour(speed=150)
 ])
 app_state.add_entity(player)
 
 enemies = []
 for i in range(ENEMY_COUNT):
     enemy = Entity(name=f'Enemy-{i}', transform=Transform(np.array([400 + (20 * i), 400 + (25*i)])), color=(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)), size=PLAYER_SIZE, behaviours=[
-        EnemyEntity(speed=50 + 5*i, target=player, max_acceleration=5)
+        ChaserBehaviour(speed=15*(i+1), target=player, max_acceleration=5)
     ])
     enemies.append(enemy)
     app_state.add_entity(enemy)
