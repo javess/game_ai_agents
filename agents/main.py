@@ -1,7 +1,6 @@
 import pygame
 import sys
 import numpy as np
-import random
 from ecslib.game.app_state import AppState
 from ecslib.entity import Entity
 from ecslib.behavior.enemy import EnemyEntity
@@ -12,8 +11,6 @@ from ecslib.transform import Transform
 WORLD_WIDTH = 1440
 WORLD_HEIGHT = 800
 PLAYER_SIZE = (15, 15)
-PLAYER_SPEED = 50
-CHASER_SPEED = 1
 
 # Create a clock object
 clock = pygame.time.Clock()
@@ -35,6 +32,7 @@ enemy2 = Entity(name='Enemy2', transform=Transform(np.array([400, 600])), color=
 ])
 
 app_state = AppState()
+
 app_state.add_entity(player)
 app_state.add_entity(enemy1)
 app_state.add_entity(enemy2)

@@ -1,4 +1,6 @@
-from typing import List, Type
+from typing import List
+
+from ecs.behavior.behaviour import Behaviour
 from .transform import Transform
 from .base_renderer import BaseRenderer
 import numpy as np
@@ -9,7 +11,7 @@ class Entity:
         self._name: str = name
         self._transform: Transform = transform
         self._renderer = BaseRenderer(color, size, self.get_position_tuple())
-        self._speed_vector:np.ndarray = np.array([100, 0])
+        self._speed_vector: np.ndarray = np.array([100, 0])
         self.behaviours = behaviours
 
     def get_transform(self) -> Transform:
@@ -25,12 +27,11 @@ class Entity:
     def get_position_tuple(self) -> (int, int):
         pos = self.get_position()
         return (pos[0], pos[1])
-    
+
     def move(self, delta_time: float):
         enemy_pos = Transform.wrap_toloidal_pos(
             self.get_position() + self._speed_vector*delta_time, 1440, 800)
         self.set_position(enemy_pos)
-    
 
     def update(self, delta_time: float):
         for b in self.behaviours:
@@ -38,5 +39,7 @@ class Entity:
         self.move(delta_time)
 
     def render(self, screen):
-        self._renderer.render(screen, self._name);
-    
+        self._renderer.render(screen, self._name)
+
+    def add_behaviour(self, behaviour: Behaviour):
+        self.behaviours.append(behaviour)
