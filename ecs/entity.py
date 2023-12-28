@@ -1,6 +1,5 @@
 from typing import List
 
-from ecs.behavior.behaviour import Behaviour
 from .transform import Transform
 from .base_renderer import BaseRenderer
 import numpy as np
@@ -41,5 +40,5 @@ class Entity:
     def render(self, screen):
         self._renderer.render(screen, self._name)
 
-    def add_behaviour(self, behaviour: Behaviour):
+    def add_behaviour(self, behaviour):
         self.behaviours.append(behaviour)

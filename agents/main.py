@@ -1,6 +1,7 @@
 import pygame
 import sys
 import numpy as np
+import random
 from ecslib.game.app_state import AppState
 from ecslib.entity import Entity
 from ecslib.behavior.enemy import EnemyEntity
@@ -10,6 +11,7 @@ from ecslib.transform import Transform
 
 WORLD_WIDTH = 1440
 WORLD_HEIGHT = 800
+ENEMY_COUNT = 10
 PLAYER_SIZE = (15, 15)
 
 # Create a clock object
@@ -20,22 +22,20 @@ fps = 60
 
 pygame.init()
 screen = pygame.display.set_mode((WORLD_WIDTH, WORLD_HEIGHT))
+app_state = AppState()
 
 player = Entity(name='Player', transform=Transform(np.array([100, 100])), color=(255, 255, 255), size=PLAYER_SIZE, behaviours=[
     PlayerEntity(speed=150)
 ])
-enemy1 = Entity(name='Enemy1', transform=Transform(np.array([800, 600])), color=(255, 0, 0), size=PLAYER_SIZE, behaviours=[
-    EnemyEntity(speed=120, target=player, max_acceleration=5)
-])
-enemy2 = Entity(name='Enemy2', transform=Transform(np.array([400, 600])), color=(0, 255, 0), size=PLAYER_SIZE, behaviours=[
-    EnemyEntity(speed=100, target=player, max_acceleration=5)
-])
-
-app_state = AppState()
-
 app_state.add_entity(player)
-app_state.add_entity(enemy1)
-app_state.add_entity(enemy2)
+
+enemies = []
+for i in range(ENEMY_COUNT):
+    enemy = Entity(name=f'Enemy-{i}', transform=Transform(np.array([400 + (20 * i), 400 + (25*i)])), color=(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)), size=PLAYER_SIZE, behaviours=[
+        EnemyEntity(speed=50 + 5*i, target=player, max_acceleration=5)
+    ])
+    enemies.append(enemy)
+    app_state.add_entity(enemy)
 
 
 while True:
