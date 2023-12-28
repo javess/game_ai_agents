@@ -24,9 +24,15 @@ fps = 60
 pygame.init()
 screen = pygame.display.set_mode((WORLD_WIDTH, WORLD_HEIGHT))
 
-player = PlayerEntity(speed= 150, name = 'Player', transform = Transform(np.array([100, 100])), color = (255, 255, 255), size = PLAYER_SIZE)
-enemy1 = EnemyEntity(target= player, speed= 100, max_acceleration = 15, name = 'Enemy1', transform = Transform(np.array([800, 600])), color = (255, 0, 0), size = PLAYER_SIZE)
-enemy2 = EnemyEntity(target= player, speed= 120, max_acceleration = 5, name = 'Enemy2', transform = Transform(np.array([400, 600])), color = (0, 255, 0), size = PLAYER_SIZE)
+player = Entity(name='Player', transform=Transform(np.array([100, 100])), color=(255, 255, 255), size=PLAYER_SIZE, behaviours=[
+    PlayerEntity(speed=150)
+])
+enemy1 = Entity(name='Enemy1', transform=Transform(np.array([800, 600])), color=(255, 0, 0), size=PLAYER_SIZE, behaviours=[
+    EnemyEntity(speed=120, target=player, max_acceleration=5)
+])
+enemy2 = Entity(name='Enemy2', transform=Transform(np.array([400, 600])), color=(0, 255, 0), size=PLAYER_SIZE, behaviours=[
+    EnemyEntity(speed=100, target=player, max_acceleration=5)
+])
 
 app_state = AppState()
 app_state.add_entity(player)
@@ -44,9 +50,8 @@ while True:
     screen.fill((0, 0, 0))
 
     # Limit the FPS by sleeping for the remainder of the frame time
-    frame_time =  clock.tick(fps)
+    frame_time = clock.tick(fps)
     time_delta = min(frame_time/1000.0, 0.1)
     app_state.update(screen, time_delta)
 
     pygame.display.update()
-   

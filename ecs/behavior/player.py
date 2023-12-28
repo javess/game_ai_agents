@@ -1,10 +1,11 @@
 
+from .behaviour import Behaviour
 from ..entity import Entity
-from ..transform import Transform
 import numpy as np
 import random
 
-class PlayerEntity(Entity):
+
+class PlayerEntity(Behaviour):
     def __init__(self, speed, **kwargs):
         super().__init__(**kwargs)
         self.speed = speed
@@ -23,14 +24,16 @@ class PlayerEntity(Entity):
 
         return rotated_vector
 
-    def get_random_direction_vector(self,speed):
-        random_float_range = random.uniform(-self.max_turn_angle, self.max_turn_angle)
-        direction = self.rotate_vector(self._speed_vector, random_float_range)
+    def get_random_direction_vector(self, speed, entity):
+        random_float_range = random.uniform(-self.max_turn_angle,
+                                            self.max_turn_angle)
+        direction = self.rotate_vector(
+            entity._speed_vector, random_float_range)
         return speed * direction / np.sqrt(np.sum(direction**2))
 
-    def update_speed_vector(self, direction):
-        self._speed_vector = direction
-    
-    def update(self, delta_time: float):
-        self.update_speed_vector(self.get_random_direction_vector(self.speed))
-        super().update(delta_time) 
+    def update_speed_vector(self, direction, entity):
+        entity._speed_vector = direction
+
+    def update_impl(self, delta_time: float, entity: Entity):
+        random_direction = self.get_random_direction_vector(self.speed, entity)
+        self.update_speed_vector(random_direction, entity)

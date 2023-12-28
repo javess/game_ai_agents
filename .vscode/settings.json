@@ -14,5 +14,8 @@
         "buck-out": true,
         "prelude": true,
         "toolchains": true,
-    }
+    },
+    "python.analysis.addImport.exactMatchOnly": true,
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.autoImportCompletions": true
 }

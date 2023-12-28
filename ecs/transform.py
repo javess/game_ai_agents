@@ -1,8 +1,9 @@
 import numpy as np
 
+
 class Transform:
-    def __init__(self, pos:np.ndarray):
-        self._pos:np.ndarray[(int, int)] = pos
+    def __init__(self, pos: np.ndarray):
+        self._pos: np.ndarray[(int, int)] = pos
 
     def get_position(self) -> np.ndarray:
         return self._pos
