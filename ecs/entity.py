@@ -6,13 +6,15 @@ import numpy as np
 
 
 class Entity:
-    def __init__(self, name: str, transform: Transform, color: (int, int, int), size: (int, int), behaviours: List):
+    def __init__(self, name: str, transform: Transform, color: (int, int, int), size: (int, int), behaviours: List, show_name: bool = False):
         self._name: str = name
         self._transform: Transform = transform
         self._color:  (int, int, int) = color
-        self._renderer = BaseRenderer(color, size, self.get_position_tuple())
-        self._speed_vector: np.ndarray = np.array([100, 0])
+        self._renderer = BaseRenderer(
+            color, size, self.get_position_tuple(), name, show_name)
+        self._speed_vector: np.ndarray = np.array([0, 0])
         self.behaviours = behaviours
+        self.show_name: bool = show_name
 
     def get_transform(self) -> Transform:
         return self._transform
@@ -39,7 +41,11 @@ class Entity:
         self.move(delta_time)
 
     def render(self, screen):
-        self._renderer.render(screen, self._name)
+        self._renderer.render(screen)
 
     def add_behaviour(self, behaviour):
         self.behaviours.append(behaviour)
+
+    def distance_to_target(self, dst):
+        vec = self.get_position() - dst.get_position()
+        return np.sqrt(np.sum(vec**2))
