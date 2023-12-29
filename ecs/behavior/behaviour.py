@@ -6,8 +6,8 @@ class Behaviour():
     def __init__(self):
         pass
 
-    def update_impl(self, delta_time: float):
+    def update_impl(self, screen, delta_time: float, entity: Entity):
         pass
 
-    def do_update(self, delta_time: float, entity: Entity):
-        self.update_impl(delta_time, entity)
+    def do_update(self, screen, delta_time: float, entity: Entity):
+        self.update_impl(screen, delta_time, entity)

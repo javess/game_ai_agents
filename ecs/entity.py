@@ -9,6 +9,7 @@ class Entity:
     def __init__(self, name: str, transform: Transform, color: (int, int, int), size: (int, int), behaviours: List):
         self._name: str = name
         self._transform: Transform = transform
+        self._color:  (int, int, int) = color
         self._renderer = BaseRenderer(color, size, self.get_position_tuple())
         self._speed_vector: np.ndarray = np.array([100, 0])
         self.behaviours = behaviours
@@ -32,9 +33,9 @@ class Entity:
             self.get_position() + self._speed_vector*delta_time, 1440, 800)
         self.set_position(enemy_pos)
 
-    def update(self, delta_time: float):
+    def update(self, screen, delta_time: float):
         for b in self.behaviours:
-            b.do_update(delta_time, self)
+            b.do_update(screen, delta_time, self)
         self.move(delta_time)
 
     def render(self, screen):
